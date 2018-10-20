@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDAO {
 	private String jdbcURL;
     private String jdbcUsername;
@@ -16,21 +17,18 @@ public class UserDAO {
     private Connection jdbcConnection;
      
     public UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
-        this.jdbcURL = jdbcURL;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
+        this.jdbcURL = "jdbc:mysql://localhost:3306/NetSec";
+        this.jdbcUsername = "root";
+        this.jdbcPassword = "";
     }
      
     protected void connect() throws SQLException {
-        if (jdbcConnection == null || jdbcConnection.isClosed()) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+            	Class.forName("com.mysql.jdbc.Driver");
+                jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+                System.out.println("Connected!!");
             } catch (ClassNotFoundException e) {
-                throw new SQLException(e);
             }
-            jdbcConnection = DriverManager.getConnection(
-                                        jdbcURL, jdbcUsername, jdbcPassword);
-        }
     }
      
     protected void disconnect() throws SQLException {
@@ -39,7 +37,7 @@ public class UserDAO {
         }
     }
      
-    public boolean insertUser(User user) throws SQLException {
+    public int insertUser(User user) throws SQLException {
         String sql = "INSERT INTO Users (id, username, password, role) VALUES (?, ?, ?, ?)";
         connect();
          
@@ -48,11 +46,14 @@ public class UserDAO {
         statement.setString(2, user.getUsername());
         statement.setString(3, user.getPassword());
         statement.setString(4, user.getRole());
-         
-        boolean rowInserted = statement.executeUpdate() > 0;
+        
+        
+        System.out.println(statement);
+        int i = statement.executeUpdate();
+        System.out.println(i);
         statement.close();
         disconnect();
-        return rowInserted;
+        return i;
     }
      
     public List<User> listAllUsers() throws SQLException {
@@ -88,6 +89,7 @@ public class UserDAO {
         String sql = "DELETE FROM Users where Id = ?";
          
         connect();
+        System.out.println("Connected to Database");
          
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, user.getId());

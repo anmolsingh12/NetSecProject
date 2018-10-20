@@ -20,9 +20,9 @@
 		        	<div class="card card-signin my-5">
 		          		<div class="card-body">
 		            		<h5 class="card-title text-center">Sign In</h5>
-		            		<form class="form-signin" action="register" method="post" >
+		            		<form class="form-signin" action="Register" method="post" >
 			                    <div class="form-label-group">
-			                        <label for="userId" >Id</label>
+			                        <label for="userId" ></label>
 			                        <input type="text" class="form-control" id="userId" name="userId">
 			                    </div>
 			                

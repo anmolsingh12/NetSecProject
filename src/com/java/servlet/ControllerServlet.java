@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ControllerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static String LOGIN = "/login.jsp";
+    private static String REGISTER = "/register.jsp";
 	private UserDAO userDAO;
     
     public ControllerServlet() {
@@ -27,31 +29,42 @@ public class ControllerServlet extends HttpServlet {
     }
 
     public void init(ServletConfig config) throws ServletException {
-    	String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+    	String jdbcURL = "jdbc:mysql://localhost:3306/NetSec";
+        String jdbcUsername = "root";
+        String jdbcPassword = "";
  
         userDAO = new UserDAO(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    		int id = Integer.parseInt(request.getParameter("userId"));
+            String uname = request.getParameter("username");
+            String pass = request.getParameter("password");
+            String role = request.getParameter("role");
+
+            User newUser = new User(id, uname, pass, role);
+            try {
+            	userDAO.insertUser(newUser);
+            }catch(SQLException sql)
+            {
+            	
+            }
+            
+            response.sendRedirect("success.jsp");
+    	doGet(request, response);
 	}
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String action = request.getServletPath();
+		String forward="";
+		String action = request.getParameter("action");
 		 
-        try {
-            switch (action) {
-            case "/login":
-                login(request, response);
-                break;
-                
-            case "/register":
-                register(request, response);
-                break;
-                
+		try
+		{
+			
+			if (action.equalsIgnoreCase("login")){
+	                login(request, response);
+	        }
             /*case "/delete":
                 deleteUser(request, response);
                 break;
@@ -68,19 +81,18 @@ public class ControllerServlet extends HttpServlet {
                 listUser(request, response);
                 break;
                 */
-            }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
     }
  
-    private void listUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<User> listUser = userDAO.listAllUsers();
-        request.setAttribute("listBook", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("BookList.jsp");
-        dispatcher.forward(request, response);
-    }
+//    private void listUser(HttpServletRequest request, HttpServletResponse response)
+//            throws SQLException, IOException, ServletException {
+//        List<User> listUser = userDAO.listAllUsers();
+//        request.setAttribute("listUser", listUser);
+////        RequestDispatcher dispatcher = request.getRequestDispatcher("UserList.jsp");
+////        dispatcher.forward(request, response);
+//    }
  
     private void login(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, SQLException, IOException {
@@ -107,17 +119,7 @@ public class ControllerServlet extends HttpServlet {
         }
     }
     
-    private void register(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, SQLException, IOException {
-    	int id = Integer.parseInt(request.getParameter("userId"));
-        String uname = request.getParameter("username");
-        String pass = request.getParameter("password");
-        String role = request.getParameter("role");
-
-        User newUser = new User(id, uname, pass, role);
-        userDAO.insertUser(newUser);
-        response.sendRedirect("success.jsp");
-    }
+    
  
     /*private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
