@@ -27,7 +27,8 @@ public class Login extends HttpServlet {
     	String username = request.getParameter("uname");
         String password = request.getParameter("pass");
         String role = "";
-        
+        System.out.println(username);
+        System.out.println(password);
         try {
         role = userDAO.login(username, password);
         

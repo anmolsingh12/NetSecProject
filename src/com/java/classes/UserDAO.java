@@ -22,23 +22,29 @@ public class UserDAO {
         this.jdbcPassword = "";
     }
      
-    protected void connect() throws SQLException {
+    protected Connection connect() throws SQLException {
+    	if (jdbcConnection != null)
+            return jdbcConnection;
+        else {
             try {
-            	Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.jdbc.Driver");
                 jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-                System.out.println("Connected!!");
             } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-    }
-     
-    protected void disconnect() throws SQLException {
-        if (jdbcConnection != null && !jdbcConnection.isClosed()) {
-            jdbcConnection.close();
+            return jdbcConnection;
         }
     }
      
+    
+    protected void disconnect() throws SQLException {
+            jdbcConnection.close();
+    }
+     
     public int insertUser(User user) throws SQLException {
-        String sql = "INSERT INTO Users (id, username, password, role) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (id, username, password, role) VALUES (?, ?, ?, ?);";
         connect();
          
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -81,6 +87,7 @@ public class UserDAO {
         statement.close();
          
         disconnect();
+        System.out.println("Disconnected!!");
          
         return listUser;
     }
@@ -145,16 +152,20 @@ public class UserDAO {
     
     public String login(String username, String password) throws SQLException
     {
+    	Connection connection = connect();
+    	System.out.println("Inside DAO");
+    	
     	String result = null;
         String sql = "SELECT * FROM Users WHERE username = ?";
          
-        connect();
+        
+        System.out.println("Connected!!");
          
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, username);
-         
+        System.out.println(statement); 
         ResultSet resultSet = statement.executeQuery();
-         
+        System.out.println(resultSet);
         if (resultSet.next()) {
         	String uname = resultSet.getString("username");
             String pass = resultSet.getString("password");

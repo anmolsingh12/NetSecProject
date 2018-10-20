@@ -33,7 +33,7 @@
 		        	<div class="card card-signin my-5">
 		          		<div class="card-body">
 		            		<h5 class="card-title text-center">Sign In</h5>
-		            		<form class="form-signin" action="login" method="post">
+		            		<form class="form-signin" action="Login" method="post">
 		              	
 		              			<div class="form-label-group">
 		                			<input type="text" id="username" name = "uname" class="form-control" placeholder="--User Name" required autofocus>
