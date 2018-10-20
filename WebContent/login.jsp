@@ -33,15 +33,15 @@
 		        	<div class="card card-signin my-5">
 		          		<div class="card-body">
 		            		<h5 class="card-title text-center">Sign In</h5>
-		            		<form class="form-signin">
+		            		<form class="form-signin" action="login" method="post">
 		              	
 		              			<div class="form-label-group">
-		                			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-		                			<label for="inputEmail">Email address</label>
+		                			<input type="text" id="username" name = "uname" class="form-control" placeholder="--User Name" required autofocus>
+		                			<label for="username">User Name</label>
 		              			</div>
 		
 		              			<div class="form-label-group">
-		                			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		                			<input type="password" id="inputPassword" name="pass" class="form-control" placeholder="Password" required>
 		                			<label for="inputPassword">Password</label>
 		              			</div>
 		
@@ -53,8 +53,8 @@
 		              			<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
 		              			
 		              		</form>
-		              		<hr class="my-4">
-		              			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+		              		<!-- hr class="my-4">
+		              			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
 		          		</div>
 		        	</div>
 		      	</div>
