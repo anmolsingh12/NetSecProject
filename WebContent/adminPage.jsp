@@ -14,6 +14,6 @@
 	</head>
 	
 	<body>
-
+		Admin Page
 	</body>
 </html>

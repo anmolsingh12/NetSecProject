@@ -9,6 +9,11 @@ package com.java.classes;
 	 
 	    public User() {
 	    }
+	    public User (String username, String pass)
+	    {	
+	    	this.username = username;
+	        this.pass = pass;
+	    }
 	 
 	    public User(int id) {
 	    	if(id == 0)

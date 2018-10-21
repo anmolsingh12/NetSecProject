@@ -32,7 +32,7 @@
 			                    </div>
 			                    
 			                    <div class="form-label-group">
-			                        <input type="password" class="form-control" id="password" name="password" placeholder="--Password--">
+			                        <input type="password" class="form-control" id="password" name="password" placeholder="--Password--" onBlur="convert()">
 			                    	<label for="password">Password</label>			                        
 			                    </div>
 								  
@@ -43,7 +43,7 @@
 										<label><input type = "radio" id="role" name = "role" value="user">User</label>
 									</div>	
 								</div>
-								
+																
 								<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Add User</button>
 							</form>
 						</div>
@@ -51,6 +51,7 @@
 				</div>
         	</div>
 		</div>
+		
 		<!-- JavaScript Code and Libraries -->
     	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

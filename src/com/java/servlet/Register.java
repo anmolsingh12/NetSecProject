@@ -1,5 +1,6 @@
 package com.java.servlet;
 
+import java.security.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -19,16 +20,32 @@ public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
     
-   
+    
+    public Register() {
+        super();
+        userDAO = new UserDAO();
+        
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	userDAO = new UserDAO(jdbcURL, jdbcUsername,jdbcPassword);
     	int id = Integer.parseInt(request.getParameter("userId"));
         String uname = request.getParameter("username");
         String pass = request.getParameter("password");
-        String role = request.getParameter("role");
-        int status = 0;
+        byte[] bytesOfMessage = null;
+        byte[] thedigest = null;
+        try{
+        	bytesOfMessage = pass.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            thedigest = md.digest(bytesOfMessage);
+        }catch (java.security.NoSuchAlgorithmException e) {}
         
-        User newUser = new User(id, uname, pass, role);
+        System.out.println(thedigest);
+        String passHash = thedigest.toString();
+        
+        String role = request.getParameter("role");
+        boolean status = false;
+        
+        User newUser = new User(id, uname, pass, passHash, role);
         try {
         	System.out.println("Inside Try Block!!");
         	status = userDAO.insertUser(newUser);
@@ -37,7 +54,7 @@ public class Register extends HttpServlet {
         {
         	
         }
-        if(status > 0)
+        if(status == true)
         	response.sendRedirect("success.jsp");
         else
         	response.sendRedirect("error.jsp");

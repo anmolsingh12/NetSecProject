@@ -19,20 +19,27 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
     public Login() {
-        super();
-        userDAO = new UserDAO(jdbcURL, jdbcUsername,jdbcPassword);
+        //userDAO = new UserDAO(jdbcURL, jdbcUsername,jdbcPassword);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, ServletException, IOException {
     	String username = request.getParameter("uname");
         String password = request.getParameter("pass");
-        String role = "";
+        String role = null;
         System.out.println(username);
         System.out.println(password);
+        
+        User newUser = new User(username, password);
+        
         try {
-        role = userDAO.login(username, password);
+			role = userDAO.login(newUser);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
+        System.out.println(role);
         if(role == "admin") 
         {
         	RequestDispatcher dispatcher = request.getRequestDispatcher("adminPage.jsp");
@@ -50,7 +57,7 @@ public class Login extends HttpServlet {
         	RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
         	dispatcher.forward(request, response);
         }
-        }catch (Exception ex) {}
+        
 	}
 
 }
