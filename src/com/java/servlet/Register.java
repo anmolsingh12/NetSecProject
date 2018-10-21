@@ -19,14 +19,9 @@ public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
     
-    
-    public Register() {
-        super();
-        userDAO = new UserDAO(jdbcURL, jdbcUsername,jdbcPassword);
-        
-    }
-
+   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	userDAO = new UserDAO(jdbcURL, jdbcUsername,jdbcPassword);
     	int id = Integer.parseInt(request.getParameter("userId"));
         String uname = request.getParameter("username");
         String pass = request.getParameter("password");
@@ -36,7 +31,7 @@ public class Register extends HttpServlet {
         User newUser = new User(id, uname, pass, role);
         try {
         	System.out.println("Inside Try Block!!");
-        	userDAO.insertUser(newUser);
+        	status = userDAO.insertUser(newUser);
         	
         }catch(SQLException sql)
         {

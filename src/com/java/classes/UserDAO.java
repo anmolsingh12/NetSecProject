@@ -45,8 +45,18 @@ public class UserDAO {
      
     public int insertUser(User user) throws SQLException {
         String sql = "INSERT INTO Users (id, username, password, role) VALUES (?, ?, ?, ?);";
-        connect();
-         
+        //connect();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+            
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, user.getId());
         statement.setString(2, user.getUsername());
