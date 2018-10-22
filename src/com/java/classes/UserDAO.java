@@ -28,6 +28,8 @@ public class UserDAO {
           statement.setString(4, user.getPassHash());
           statement.setString(5, user.getRole());
           statement.executeUpdate();
+          statement.close();
+          con.close();
     	}catch(Exception ex)
     	{
     		ex.printStackTrace();
@@ -151,7 +153,7 @@ public class UserDAO {
 //    }
 //    
     public String login(User newUser) throws SQLException, ClassNotFoundException
-    {	
+    {
     	String result = null;
     	String role;
     	
@@ -178,16 +180,19 @@ public class UserDAO {
 	        	String user = resultSet.getString("username");
 	            String userpass = resultSet.getString("password");
 	            role = resultSet.getString("role");
-	        
-	            if(newUser.username == user  && newUser.pass == userpass)
+	            System.out.println("Uname : "+user+" pass: "+userpass+" role: "+role);
+	            if(newUser.username.equals(user)   && newUser.pass.equals(userpass))
 	               	result = role;
 	            
 	        	else
 	        		result = "error";      	
 	        }
-	        else result = "error";
-    	return result;
-  	}
+	                
+	        statement.close();
+	        con.close();
+	        
+	        return result;
+    }
 }
 
 

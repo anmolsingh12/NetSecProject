@@ -19,20 +19,30 @@
     	<link rel="stylesheet" href="css/login_styles.css">
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
 	</head>
 	
-	<body>
+	<body class="main">
 	<!-- Page Loader -->
 	
 	<!-- Page Loader -->
+	
+	<!-- Login Navbar -->
+	<nav class="navbar navbar-dark navbar-expand-sm navbar-toggleable-xs fixed-top bg-light">
+		<h2 style="font-family: 'Shadows Into Light', cursive; font-size:56px; font-weight:300;">New On this Site?</h2><hr>
+		<a id="login-button" class="btn btn-info login-button" href="register.jsp">Register Here</a>
+  	</nav>
+  	<!-- Login Navbar -->
+	
 	
 	<!-- Login Container -->
-		<div class="container">
+		<div class="container" style="margin-top:75px;">
 			<div class="row">
 		    	<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 		        	<div class="card card-signin my-5">
 		          		<div class="card-body">
 		            		<h5 class="card-title text-center">Sign In</h5>
+		            		<hr class="my-5">
 		            		<form class="form-signin" action="Login" method="post">
 		              	
 		              			<div class="form-label-group">

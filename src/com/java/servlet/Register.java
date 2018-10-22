@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,9 +56,15 @@ public class Register extends HttpServlet {
         	
         }
         if(status == true)
+        {
+        	Cookie loginCookie = new Cookie("user",uname);
+			//setting cookie to expiry in 30 mins
+			loginCookie.setMaxAge(30*60);
+			response.addCookie(loginCookie);
         	response.sendRedirect("success.jsp");
+        }
         else
-        	response.sendRedirect("error.jsp");
+        	response.sendRedirect("AdminPageAssets/404.html");
     }
 
 }

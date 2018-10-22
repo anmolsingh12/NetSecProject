@@ -1,8 +1,8 @@
 package com.java.servlet;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
+import java.io.*;  
+import javax.servlet.*;  
+import javax.servlet.http.*;  
 import com.java.classes.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,28 +25,33 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, ServletException, IOException {
     	String username = request.getParameter("uname");
         String password = request.getParameter("pass");
-        String role = null;
+        String role = "";
         System.out.println(username);
         System.out.println(password);
+                
+        userDAO = new UserDAO();
         
         User newUser = new User(username, password);
         
         try {
 			role = userDAO.login(newUser);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         
         System.out.println(role);
-        if(role == "admin") 
+        if(role.equals("admin")) 
         {
+        	Cookie loginCookie = new Cookie("user",username);
+			//setting cookie to expiry in 30 mins
+			loginCookie.setMaxAge(30*60);
+			response.addCookie(loginCookie);
         	RequestDispatcher dispatcher = request.getRequestDispatcher("adminPage.jsp");
         	dispatcher.forward(request, response);
         }
         
-        else if(role == "user")
+        else if(role.equals("user"))
         {
         	RequestDispatcher dispatcher = request.getRequestDispatcher("customerPage.jsp");
         	dispatcher.forward(request, response);
