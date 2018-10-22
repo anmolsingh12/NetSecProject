@@ -107,10 +107,9 @@
 
     <div id="wrapper">
 
-      <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../adminPage.jsp">
+          <a class="nav-link" href="adminPage.jsp">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -122,24 +121,24 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="../login.jsp">Login</a>
-            <a class="dropdown-item" href="../register.jsp">Register</a>
-            <a class="dropdown-item" href="forgot-password.jsp">Forgot Password</a>
+            <a class="dropdown-item" href="login.jsp">Login</a>
+            <a class="dropdown-item" href="register.jsp">Register</a>
+            <a class="dropdown-item" href="AdminPageAssets/forgot-password.jsp">Forgot Password</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.jsp">404 Page</a>
-            <a class="dropdown-item" href="blank.jsp">Blank Page</a>
+            <a class="dropdown-item" href="AdminPageAssets/404.jsp">404 Page</a>
+            <a class="dropdown-item" href="AdminPageAssets/blank.jsp">Blank Page</a>
           </div>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="charts.jsp">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.jsp">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+          <a class="nav-link" href="uploadFile.jsp">
+            <i class="fas fa-fw fa fa-upload"></i>
+            <span>Upload Files</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="AdminPageAssets/tables.jsp">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Manage Users</span></a>
         </li>
       </ul>
 
@@ -161,7 +160,7 @@
               <i class="fas fa-chart-area"></i>
               Area Chart Example</div>
             <div class="card-body">
-              <canvas id="myAreaChart" width="100%" height="30"></canvas>
+              <div class="dropzone"></div>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
@@ -251,6 +250,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="AdminPageAssets/js/sb-admin.min.js"></script>
+    <script type="text/javascript" src="js/dropzone.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
     <!-- Demo scripts for this page-->
     <script src="AdminPageAssets/AdminPage/js/demo/datatables-demo.js"></script>

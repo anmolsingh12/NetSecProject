@@ -135,12 +135,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="uploadFile.jsp">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa fa-upload"></i>
             <span>Upload Files</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="AdminPageAssets/tables.jsp">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-user"></i>
             <span>Manage Users</span></a>
         </li>
       </ul>
