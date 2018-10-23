@@ -155,13 +155,16 @@
           </ol>
 
           <!-- Area Chart Example-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-              Area Chart Example</div>
-            <div class="card-body">
-              <div class="dropzone"></div>
+          <form method="post" action="FileUpload" enctype="multipart/form-data">
+          	<div class="card mb-3">
+            	<div class="card-header">
+              		<i class="fas fa-chart-area"></i>
+              		Area Chart Example</div>
+            	<div class="card-body">
+             	<div class="dropzone"><input type="file" name="file" size="50"/></div>
+             	<input class="btn btn-info" type="submit" value="Upload">
             </div>
+          </form>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
 

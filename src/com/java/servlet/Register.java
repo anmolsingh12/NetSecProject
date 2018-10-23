@@ -59,12 +59,12 @@ public class Register extends HttpServlet {
         {
         	Cookie loginCookie = new Cookie("user",uname);
 			//setting cookie to expiry in 30 mins
-			loginCookie.setMaxAge(30*60);
+			loginCookie.setMaxAge(3*30*60);
 			response.addCookie(loginCookie);
         	response.sendRedirect("success.jsp");
         }
         else
-        	response.sendRedirect("AdminPageAssets/404.html");
+        	response.sendRedirect("AdminPageAssets/404.jsp");
     }
 
 }

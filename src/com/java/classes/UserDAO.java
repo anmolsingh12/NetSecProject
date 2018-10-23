@@ -37,6 +37,80 @@ public class UserDAO {
     	}
     	return result;
     }
+    
+    public String login(User newUser) throws SQLException, ClassNotFoundException
+    {
+    	String result = null;
+    	String role;
+    	
+    	System.out.println("Inside Login");
+    	
+    		Class.forName("com.mysql.jdbc.Driver");
+    		String url="jdbc:mysql://localhost:3306/NetSec";
+    		String username ="root";
+    		String pass="";
+    		Connection con = DriverManager.getConnection(url,username,pass);
+    		System.out.println("Connected!!");
+	        String sql = "SELECT * FROM Users WHERE username = ?";
+	         
+	        
+	        System.out.println("Connected!!");
+	        
+	         
+	        PreparedStatement statement = con.prepareStatement(sql);
+	        statement.setString(1, newUser.username);
+	        System.out.println(statement); 
+	        ResultSet resultSet = statement.executeQuery();
+	        System.out.println(resultSet);
+	        if (resultSet.next()) {
+	        	String user = resultSet.getString("username");
+	            String userpass = resultSet.getString("password");
+	            role = resultSet.getString("role");
+	            System.out.println("Uname : "+user+" pass: "+userpass+" role: "+role);
+	            if(newUser.username.equals(user)   && newUser.pass.equals(userpass))
+	               	result = role;
+	            
+	        	else
+	        		result = "error";      	
+	        }
+	                
+	        statement.close();
+	        con.close();
+	        
+	        return result;
+    }
+    
+    public boolean fileUploadInfo(String fileName, String fileSize, String fileType, String filePath)
+    throws SQLException, ClassNotFoundException
+    {
+    	Class.forName("com.mysql.jdbc.Driver");
+		String url="jdbc:mysql://localhost:3306/NetSec";
+		String username ="root";
+		String pass="";
+		Connection con = DriverManager.getConnection(url,username,pass);
+		System.out.println("Connected!!");
+        String sql = "INSERT INTO fileDB (fileName, fileSize, fileType, filePath) VALUES (?, ?, ?, ?);";
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.setString(1, fileName);
+	    statement.setString(2, fileSize);
+	    statement.setString(3, fileType);
+	    statement.setString(4, filePath);
+	    
+	    if(statement.executeUpdate() > 0)
+	    {
+	    	statement.close();
+		    con.close();
+	    	return true;
+	    }
+	    else
+	    	return false;
+    }
+    
+    public List<String> getFileInfo()
+    {
+    	List<String>
+    	return 
+    }
 //        String sql = "INSERT INTO Users (id, username, password, role) VALUES (?, ?, ?, ?);";
 //        //connect();
 //        try {
@@ -152,47 +226,7 @@ public class UserDAO {
 //        return user;
 //    }
 //    
-    public String login(User newUser) throws SQLException, ClassNotFoundException
-    {
-    	String result = null;
-    	String role;
-    	
-    	System.out.println("Inside Login");
-    	
-    		Class.forName("com.mysql.jdbc.Driver");
-    		String url="jdbc:mysql://localhost:3306/NetSec";
-    		String username ="root";
-    		String pass="";
-    		Connection con = DriverManager.getConnection(url,username,pass);
-    		System.out.println("Connected!!");
-	        String sql = "SELECT * FROM Users WHERE username = ?";
-	         
-	        
-	        System.out.println("Connected!!");
-	        
-	         
-	        PreparedStatement statement = con.prepareStatement(sql);
-	        statement.setString(1, newUser.username);
-	        System.out.println(statement); 
-	        ResultSet resultSet = statement.executeQuery();
-	        System.out.println(resultSet);
-	        if (resultSet.next()) {
-	        	String user = resultSet.getString("username");
-	            String userpass = resultSet.getString("password");
-	            role = resultSet.getString("role");
-	            System.out.println("Uname : "+user+" pass: "+userpass+" role: "+role);
-	            if(newUser.username.equals(user)   && newUser.pass.equals(userpass))
-	               	result = role;
-	            
-	        	else
-	        		result = "error";      	
-	        }
-	                
-	        statement.close();
-	        con.close();
-	        
-	        return result;
-    }
+    
 }
 
 
