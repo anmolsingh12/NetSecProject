@@ -260,7 +260,7 @@
                   <tbody>
                     <tr>
                       <td>196</td>
-                      <td>divya</td>
+                      <td><%=userName %></td>
                       <td>admin</td>
                     </tr>
                   </tbody>
